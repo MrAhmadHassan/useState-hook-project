@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import React from "react";
+import data from "./data.js";
+import "./app.css";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const [state, setState] = useState(data);
+
+  if(state.length==0){
+    return <h1 className="heading">No birthdays</h1>;
+  }
+  else{
+    return (
+      <React.Fragment>
+      <div className="container">
+      <h1>{state.length} Birthdays Today</h1>
+        {state.map((item) => {
+          return (
+            <div key={item._id} className="box">
+              <p>{item.title}</p>
+              <p>{item.dailyRentalRate} years</p>
+            </div>
+          );
+        })}
+        <button className="button" onClick={()=>setState([])} > Clear All </button>
+      </div>
+    </React.Fragment>
   );
+
+  }
+  
+ 
 }
 
 export default App;
